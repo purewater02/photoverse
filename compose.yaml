@@ -1,0 +1,10 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=photoverse'
+      - 'MYSQL_PASSWORD=pure1234'
+      - 'MYSQL_ROOT_PASSWORD=pure1234'
+      - 'MYSQL_USER=pure'
+    ports:
+      - '3306'
