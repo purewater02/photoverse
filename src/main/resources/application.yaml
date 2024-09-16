@@ -1,1 +1,15 @@
-spring.application.name=photoverse
+spring:
+  application:
+    name: photoverse
+  datasource:
+    url: 'jdbc:mysql://localhost:59852/photoverse'
+    username: 'pure'
+    password: 'pure1234'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true

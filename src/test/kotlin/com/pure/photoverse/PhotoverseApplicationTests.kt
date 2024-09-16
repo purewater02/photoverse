@@ -9,5 +9,4 @@ class PhotoverseApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }
