@@ -4,7 +4,7 @@ plugins {
     id("org.springframework.boot") version "3.3.3"
     id("io.spring.dependency-management") version "1.1.6"
     kotlin("plugin.jpa") version "1.9.25"
-    id("com.diffplug.spotless") version "6.13.0"
+    id("com.diffplug.spotless") version "6.25.0"
     id("org.jetbrains.kotlin.kapt") version "1.6.21"
 }
 
@@ -73,9 +73,9 @@ allOpen {
 spotless {
     kotlin {
         target("**/*.kt")
-        targetExclude("build/**/*.kt")
-        targetExclude("bin/**/*.kt")
-        ktlint("0.48.1")
+        targetExclude("**/build/**/*.kt")
+        targetExclude("**/bin/**/*.kt")
+        ktlint()
         trimTrailingWhitespace()
         indentWithSpaces(4)
         endWithNewline()
