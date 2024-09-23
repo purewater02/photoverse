@@ -22,7 +22,7 @@ class Post(
     @Column(nullable = false)
     var urls: MutableList<String> = mutableListOf(),
     @Column(columnDefinition = "TEXT")
-    var description: String? = null,
+    var caption: String? = null,
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     val postComments: MutableList<PostComment> = mutableListOf(),
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
@@ -36,8 +36,8 @@ class Post(
         this.urls = urls.toMutableList()
     }
 
-    fun updateDescription(description: String) {
-        this.description = description
+    fun updateDescription(caption: String) {
+        this.caption = caption
     }
 
     fun addComment(postComment: PostComment) {
@@ -53,12 +53,12 @@ class Post(
         fun fixture(
             user: User,
             urls: List<String> = listOf("https://example.com", "https://example.com"),
-            description: String? = "사진 설명",
+            caption: String? = "사진 설명",
         ): Post {
             return Post(
                 user = user,
                 urls = urls.toMutableList(),
-                description = description,
+                caption = caption,
             )
         }
     }

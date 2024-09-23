@@ -18,13 +18,13 @@ class User(
     @Enumerated(EnumType.STRING)
     var signInProvider: SignInProvider,
     @Column(nullable = false)
-    var nickname: String,
+    var username: String,
     @Column
     var email: String,
     @Column(name = "profile_image")
     var profileImage: String? = null,
     @Column(columnDefinition = "TEXT")
-    var description: String? = null,
+    var caption: String? = null,
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     val posts: MutableList<Post> = mutableListOf(),
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
@@ -34,7 +34,7 @@ class User(
 ) : BaseEntity() {
     init {
         require(uid.isNotBlank()) { "UID는 비어 있을 수 없습니다." }
-        require(nickname.isNotBlank()) { "닉네임은 비어 있을 수 없습니다." }
+        require(username.isNotBlank()) { "닉네임은 비어 있을 수 없습니다." }
     }
 
     enum class SignInProvider {
@@ -43,8 +43,8 @@ class User(
         GITHUB,
     }
 
-    fun updateNickname(nickname: String) {
-        this.nickname = nickname
+    fun updateNickname(username: String) {
+        this.username = username
     }
 
     fun updateEmail(email: String) {
@@ -55,8 +55,8 @@ class User(
         this.profileImage = profileImage
     }
 
-    fun updateDescription(description: String) {
-        this.description = description
+    fun updateDescription(caption: String) {
+        this.caption = caption
     }
 
     companion object {
@@ -65,18 +65,18 @@ class User(
         fun fixture(
             uid: String = "1234567890",
             signInProvider: SignInProvider = SignInProvider.GOOGLE,
-            nickname: String = "A",
+            username: String = "A",
             email: String = "test@gmail.com",
             profileImage: String = "https://cdn.discordapp.com/attachments/1276649687495213188/1285699989103841433/VRChat_2024-09-18_05-31-33.261_1920x1080_wrld_343bcc5d-a151-4b1e-8d58-af4f0df37e2e.png?ex=66ed332c&is=66ebe1ac&hm=000f1e4df8c8787ea8ea4fa99c5abd446fe58035e1ef9c8030fd6b399055e927&",
-            description: String = "test description",
+            caption: String = "test description",
         ): User {
             return User(
                 uid = uid,
                 signInProvider = signInProvider,
-                nickname = nickname,
+                username = username,
                 email = email,
                 profileImage = profileImage,
-                description = description,
+                caption = caption,
             )
         }
     }
