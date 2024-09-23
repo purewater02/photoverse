@@ -1,5 +1,6 @@
 package com.pure.photoverse.config
 
+import com.google.firebase.FirebaseApp
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -12,7 +13,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig {
+class SecurityConfig(
+    private val firebaseApp: FirebaseApp,
+) {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http.cors {
@@ -33,7 +36,7 @@ class SecurityConfig {
         }.httpBasic {
                 httpBasic ->
             httpBasic.disable()
-        }.addFilterBefore(FirebaseTokenFilter(), UsernamePasswordAuthenticationFilter::class.java)
+        }.addFilterBefore(FirebaseTokenFilter(firebaseApp), UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()
     }

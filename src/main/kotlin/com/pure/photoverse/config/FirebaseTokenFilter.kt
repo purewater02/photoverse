@@ -1,5 +1,6 @@
 package com.pure.photoverse.config
 
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -11,9 +12,9 @@ import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
-class FirebaseTokenFilter : OncePerRequestFilter() {
-    val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-
+class FirebaseTokenFilter(
+    private val firebaseApp: FirebaseApp,
+) : OncePerRequestFilter() {
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -22,7 +23,7 @@ class FirebaseTokenFilter : OncePerRequestFilter() {
         val token = request.getHeader("Authorization")
         if (token != null && token.startsWith("Bearer ")) {
             val firebaseToken = token.substring(7)
-            val auth = FirebaseAuth.getInstance()
+            val auth = FirebaseAuth.getInstance(firebaseApp)
             val decodedToken = auth.verifyIdToken(firebaseToken)
             val uid = decodedToken.uid
             val email = decodedToken.email
