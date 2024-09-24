@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/api/v1/posts")
 class PostController {
     private val log = LoggerFactory.getLogger(this::class.java)
 

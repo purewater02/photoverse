@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.cors.CorsConfiguration
@@ -28,8 +29,11 @@ class SecurityConfig(
                 authorizeRequests ->
             authorizeRequests
                 .requestMatchers("/actuator/**", "/api-docs/**", "swagger-ui/**", "favicon.ico").permitAll()
-                .requestMatchers("/api/posts/public/**").permitAll()
+                .requestMatchers("/api/v1/posts/public/**").permitAll()
                 .anyRequest().authenticated()
+        }.sessionManagement {
+                customizer ->
+            customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         }.formLogin {
                 formLogin ->
             formLogin.disable()

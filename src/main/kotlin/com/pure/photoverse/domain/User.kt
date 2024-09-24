@@ -37,10 +37,20 @@ class User(
         require(username.isNotBlank()) { "닉네임은 비어 있을 수 없습니다." }
     }
 
-    enum class SignInProvider {
-        GOOGLE,
-        APPLE,
-        GITHUB,
+    enum class SignInProvider(
+        val providerString: String,
+    ) {
+        GOOGLE("google.com"),
+        APPLE("apple.com"),
+        GITHUB("github.com"),
+        ;
+
+        companion object {
+            fun fromString(providerString: String): SignInProvider {
+                return entries.find { it.providerString == providerString }
+                    ?: throw IllegalArgumentException("지원하지 않는 로그인 제공자입니다.")
+            }
+        }
     }
 
     fun updateNickname(username: String) {
