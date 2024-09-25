@@ -16,3 +16,11 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
+
+cloudflare:
+  r2:
+    accessKey: ${R2_ACCESS_KEY}
+    secretKey: ${R2_SECRET_KEY}
+    bucketName: ${R2_BUCKET_NAME}
+    region: ${R2_REGION}
+    endpoint: ${R2_ENDPOINT_URL}

@@ -1,0 +1,49 @@
+package com.pure.photoverse.application
+
+import com.amazonaws.services.s3.AmazonS3
+import com.amazonaws.services.s3.model.ObjectMetadata
+import com.pure.photoverse.util.FileValidate
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
+import org.springframework.web.multipart.MultipartFile
+import java.util.UUID
+
+@Component
+class R2FileManagement(
+    @Value("\${cloudflare.r2.bucketName}")
+    private val r2BucketName: String,
+    private val r2Client: AmazonS3,
+) {
+    fun uploadImage(file: MultipartFile): String {
+        // Upload file to R2
+        val originalFilename = file.originalFilename ?: throw IllegalArgumentException("File name is required")
+        FileValidate.checkFileFormat(originalFilename)
+
+        val fileName = "image/${UUID.randomUUID()}-$originalFilename"
+        val objectMetadata = setFileMetaData(fileName, file)
+        r2Client.putObject(r2BucketName, originalFilename, file.inputStream, objectMetadata)
+        return getFile(fileName)
+    }
+
+    fun getFile(fileName: String): String {
+        return r2Client.getUrl(r2BucketName, fileName).toString()
+    }
+
+    fun delete(fileName: String) {
+        r2Client.deleteObject(r2BucketName, fileName)
+    }
+
+    private fun getFileExtension(fileName: String) {
+        fileName.substringAfterLast(".")
+    }
+
+    private fun setFileMetaData(
+        fileName: String,
+        multipartFile: MultipartFile,
+    ): ObjectMetadata {
+        val objectMetadata = ObjectMetadata()
+        objectMetadata.contentType = "image/${getFileExtension(fileName)}"
+        objectMetadata.contentLength = multipartFile.inputStream.available().toLong()
+        return objectMetadata
+    }
+}

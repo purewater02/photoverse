@@ -35,6 +35,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-security")
     testImplementation("org.springframework.security:spring-security-test")
+    // https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-starter-aws
+    implementation("io.awspring.cloud:spring-cloud-starter-aws:2.4.4")
 
     implementation("com.google.firebase:firebase-admin:9.3.0")
 
