@@ -1,3 +1,8 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.js.backend.ast.JsProgramFragment
+import org.jetbrains.kotlin.js.backend.ast.JsScope
+import org.jetbrains.kotlin.js.inline.clean.removeUnusedImports
+
 plugins {
     kotlin("jvm") version "1.9.25"
     kotlin("plugin.spring") version "1.9.25"
@@ -35,6 +40,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-security")
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("io.mockk:mockk:1.13.12")
     // https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-starter-aws
     implementation("io.awspring.cloud:spring-cloud-starter-aws:2.4.4")
 
@@ -68,6 +74,10 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.named("compileKotlin") {
+    dependsOn("spotlessApply")
 }
 
 allOpen {

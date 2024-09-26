@@ -5,6 +5,7 @@ import com.pure.photoverse.dto.LoginResponse
 import com.pure.photoverse.repository.user.UserRepository
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserService(
@@ -34,6 +35,7 @@ class UserService(
         )
     }
 
+    @Transactional
     fun createUser(): LoginResponse {
         val securityUser = getSecurityUser() ?: throw IllegalArgumentException("Security User not found")
         // Optional.ifPresent() 이딴 거 안쓰고 run 블록으로 그냥 바로 val user에 때려박을 수 있는 게 기분이 너무 좋다.
