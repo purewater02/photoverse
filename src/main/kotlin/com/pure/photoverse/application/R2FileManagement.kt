@@ -20,7 +20,7 @@ class R2FileManagement(
         FileValidate.checkFileFormat(originalFilename)
 
         val fileName = "image/${UUID.randomUUID()}-$originalFilename"
-        val objectMetadata = setFileMetaData(fileName, file)
+        val objectMetadata = setFileMetaData(file)
         r2Client.putObject(r2BucketName, originalFilename, file.inputStream, objectMetadata)
         return getFile(fileName)
     }
@@ -33,17 +33,13 @@ class R2FileManagement(
         r2Client.deleteObject(r2BucketName, fileName)
     }
 
-    private fun getFileExtension(fileName: String) {
-        fileName.substringAfterLast(".")
-    }
-
-    private fun setFileMetaData(
-        fileName: String,
-        multipartFile: MultipartFile,
-    ): ObjectMetadata {
+    private fun setFileMetaData(multipartFile: MultipartFile): ObjectMetadata {
         val objectMetadata = ObjectMetadata()
-        objectMetadata.contentType = "image/${getFileExtension(fileName)}"
+        val mimeType = multipartFile.contentType ?: "application/octet-stream"
+        objectMetadata.contentType = mimeType
         objectMetadata.contentLength = multipartFile.inputStream.available().toLong()
+        // 주소를 넣었을 때 이미지가 출력되지 않고 다운로드 되는 문제 해결.
+        objectMetadata.contentDisposition = "inline"
         return objectMetadata
     }
 }

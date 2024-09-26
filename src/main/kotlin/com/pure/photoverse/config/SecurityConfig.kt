@@ -29,7 +29,7 @@ class SecurityConfig(
                 authorizeRequests ->
             authorizeRequests
                 .requestMatchers("/actuator/**", "/api-docs/**", "swagger-ui/**", "favicon.ico").permitAll()
-                .requestMatchers("/api/v1/posts/public/**").permitAll()
+                .requestMatchers("/api/v1/posts/public/**", "/api/v1/images").permitAll()
                 .anyRequest().authenticated()
         }.sessionManagement {
                 customizer ->
