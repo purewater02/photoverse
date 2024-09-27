@@ -1,7 +1,7 @@
 package com.pure.photoverse.web
 
 import com.pure.photoverse.application.UserService
-import com.pure.photoverse.dto.LoginResponse
+import com.pure.photoverse.dto.response.LoginResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping

@@ -1,7 +1,7 @@
 package com.pure.photoverse.web
 
 import com.pure.photoverse.application.ImageService
-import com.pure.photoverse.dto.ImageUploadResponse
+import com.pure.photoverse.dto.response.ImageUploadResponse
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

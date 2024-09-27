@@ -1,4 +1,4 @@
-package com.pure.photoverse.dto
+package com.pure.photoverse.dto.response
 
 data class LoginResponse(
     val uid: String,

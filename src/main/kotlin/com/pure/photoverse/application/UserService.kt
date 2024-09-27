@@ -1,7 +1,7 @@
 package com.pure.photoverse.application
 
 import com.pure.photoverse.domain.User
-import com.pure.photoverse.dto.LoginResponse
+import com.pure.photoverse.dto.response.LoginResponse
 import com.pure.photoverse.repository.user.UserRepository
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
@@ -21,9 +21,13 @@ class UserService(
         }
     }
 
-    fun getUser(): LoginResponse {
+    fun getCurrentUser(): User {
         val securityUser = getSecurityUser() ?: throw IllegalArgumentException("Security User not found")
-        val user = userRepository.findByUid(securityUser["uid"] as String) ?: throw IllegalArgumentException("User not found from DB")
+        return userRepository.findByUid(securityUser["uid"] as String) ?: throw IllegalArgumentException("User not found from DB")
+    }
+
+    fun getUser(): LoginResponse {
+        val user = getCurrentUser()
         return LoginResponse.of(
             user.uid,
             user.email,

@@ -1,8 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.js.backend.ast.JsProgramFragment
-import org.jetbrains.kotlin.js.backend.ast.JsScope
-import org.jetbrains.kotlin.js.inline.clean.removeUnusedImports
-
 plugins {
     kotlin("jvm") version "1.9.25"
     kotlin("plugin.spring") version "1.9.25"

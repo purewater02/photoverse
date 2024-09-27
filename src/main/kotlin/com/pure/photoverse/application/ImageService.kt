@@ -1,6 +1,6 @@
 package com.pure.photoverse.application
 
-import com.pure.photoverse.dto.ImageUploadResponse
+import com.pure.photoverse.dto.response.ImageUploadResponse
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.multipart.MultipartFile

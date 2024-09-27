@@ -20,7 +20,7 @@ class Post(
     @ElementCollection
     @CollectionTable(name = "images", joinColumns = [JoinColumn(name = "photo_id")])
     @Column(nullable = false)
-    var urls: MutableList<String> = mutableListOf(),
+    var urls: List<String> = mutableListOf(),
     @Column(columnDefinition = "TEXT")
     var caption: String? = null,
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
@@ -57,7 +57,7 @@ class Post(
         ): Post {
             return Post(
                 user = user,
-                urls = urls.toMutableList(),
+                urls = urls,
                 caption = caption,
             )
         }

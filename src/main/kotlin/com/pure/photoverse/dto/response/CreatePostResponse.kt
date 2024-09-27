@@ -1,9 +1,9 @@
-package com.pure.photoverse.dto
+package com.pure.photoverse.dto.response
 
 import java.time.LocalDateTime
 
 data class CreatePostResponse(
-    val postId: String,
+    val postId: Long,
     val images: List<String>,
     val username: String,
     val caption: String,
@@ -11,7 +11,7 @@ data class CreatePostResponse(
 ) {
     companion object {
         fun of(
-            postId: String,
+            postId: Long,
             images: List<String>,
             username: String,
             caption: String,
