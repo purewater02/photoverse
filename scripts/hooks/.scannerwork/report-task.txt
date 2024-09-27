@@ -1,0 +1,6 @@
+projectKey=poker-finder
+serverUrl=http://127.0.0.1:39270
+serverVersion=9.9.4.87374
+dashboardUrl=http://127.0.0.1:39270/dashboard?id=poker-finder
+ceTaskId=AY3alqmjvULZPUPuMydc
+ceTaskUrl=http://127.0.0.1:39270/api/ce/task?id=AY3alqmjvULZPUPuMydc
