@@ -13,6 +13,8 @@ class R2FileManagement(
     @Value("\${cloudflare.r2.bucketName}")
     private val r2BucketName: String,
     private val r2Client: AmazonS3,
+    @Value("\${cloudflare.r2.url}")
+    private val r2PubUrl: String,
 ) {
     fun uploadImage(file: MultipartFile): String {
         // Upload file to R2
@@ -21,12 +23,13 @@ class R2FileManagement(
 
         val fileName = "image/${UUID.randomUUID()}-$originalFilename"
         val objectMetadata = setFileMetaData(file)
-        r2Client.putObject(r2BucketName, originalFilename, file.inputStream, objectMetadata)
+        r2Client.putObject(r2BucketName, fileName, file.inputStream, objectMetadata)
         return getFile(fileName)
     }
 
     fun getFile(fileName: String): String {
-        return r2Client.getUrl(r2BucketName, fileName).toString()
+        r2Client.getUrl(r2BucketName, fileName).toString()
+        return "$r2PubUrl/$fileName"
     }
 
     fun delete(fileName: String) {
