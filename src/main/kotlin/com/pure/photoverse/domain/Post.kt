@@ -18,7 +18,7 @@ class Post(
     @JoinColumn(name = "user_id", nullable = false)
     val user: User,
     @ElementCollection
-    @CollectionTable(name = "images", joinColumns = [JoinColumn(name = "photo_id")])
+    @CollectionTable(name = "post_images", joinColumns = [JoinColumn(name = "photo_id")])
     @Column(nullable = false)
     var urls: List<String> = mutableListOf(),
     @Column(columnDefinition = "TEXT")
