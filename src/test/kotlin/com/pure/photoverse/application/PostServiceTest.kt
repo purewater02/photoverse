@@ -88,7 +88,6 @@ class PostServiceTest {
 
         val post1 =
             Post.fixture(
-                id = 1L,
                 user = user,
                 urls =
                     listOf(
@@ -101,7 +100,6 @@ class PostServiceTest {
 
         val post2 =
             Post.fixture(
-                id = 2L,
                 user = user,
                 urls =
                     listOf(
@@ -135,7 +133,7 @@ class PostServiceTest {
         assertThat(response.pageSize).isEqualTo(2)
         assertThat(response.totalElements).isEqualTo(3)
         assertThat(response.hasNext).isTrue()
-        assertThat(response.data[0].userName).isEqualTo("user1")
+        assertThat(response.data[0].username).isEqualTo("user1")
         assertThat(response.data[0].caption).isEqualTo("post1 caption")
     }
 
